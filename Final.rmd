@@ -124,3 +124,12 @@ drug_user_plot
 
 ```
 # Overall Results and Conclusions
+Null Hypothesis: There is no difference in the effectiveness of the COVID921 vaccine between females.
+
+Alternative Hypothesis: The effectiveness of the COVID921 vaccine differs between females. 
+The effectiveness of the COVID921 vaccine across different population subgroups had compelling evidence to reject the null hypotheses, indicating significant differences in vaccine effectiveness among various demographics.
+
+Gender Subgroups: Both males and females exhibited statistically significant differences in vaccine effectiveness. 
+Drug User Subgroup: Individuals categorized as drug users also demonstrated a statistically significant difference in vaccine effectiveness. 
+LGBTQ Subgroup: The LGBTQ population subgroup exhibited a significant disparity in vaccine effectiveness.
+
