@@ -1,6 +1,6 @@
 ---
 title: "Covid91 vaccine study Final2023"
-author: "Put your name here!"
+author: "Shaun Ikeuchi!"
 output: 
   html_document:
     number_sections: true
@@ -24,17 +24,103 @@ mutate(across(where(is.character), as.factor))
 
 A new  preventative vaccine (covid921) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
+
 ## Males
 
 
+Null Hypothesis: There is no difference in the effectiveness of the COVID921 vaccine between males.
+
+Alternative Hypothesis: The effectiveness of the COVID921 vaccine differs between males.
+
+### Inferential
+```{r}
+male_data <- subset(FinalData, sex == "M")
+chisq.test(table(male_data$treatment, male_data$infected))
+chisqtestGC(table(male_data$treatment, male_data$infected))
+fisher.test(table(male_data$treatment, male_data$infected))
+```
+
+Using the Fischer's exact test, the p-value is 0.00000000000004631. Since, this is less than 0.5, the null hypothesis can be rejected.
+
+```{r}
+male_plot <- ggplot(male_data, aes(x = treatment, fill = infected)) +
+  geom_bar(position = "dodge", color = "black") +
+  labs(title = "Effectiveness of COVID921 Vaccine - Male Subgroup",
+       x = "Treatment", y = "Count") +
+  scale_fill_manual(values = c("OK" = "green", "covid19" = "red")) +
+  theme_minimal()
+
+male_plot
+```
 ## Females
+Null Hypothesis: There is no difference in the effectiveness of the COVID921 vaccine between females.
 
+Alternative Hypothesis: The effectiveness of the COVID921 vaccine differs between females.
 
+### Inferential
+```{r}
+female_data <- subset(FinalData, sex == "F")
+chisq.test(table(female_data$treatment, female_data$infected))
+chisqtestGC(table(female_data$treatment, female_data$infected))
+fisher.test(table(female_data$treatment, female_data$infected))
+```
+
+```{r}
+
+female_plot <- ggplot(female_data, aes(x = treatment, fill = infected)) +
+  geom_bar(position = "dodge", color = "black") +
+  labs(title = "Effectiveness of COVID921 Vaccine - Female Subgroup",
+       x = "Treatment", y = "Count") +
+  scale_fill_manual(values = c("OK" = "green", "covid19" = "red")) +
+  theme_minimal()
+female_plot
+```
+
+Using Fischer's exact test, the p-value is 0.0002162 which is less than 0.5, so the null hypothesis can be rejected.
 ## LGBTQ
+Null Hypothesis: There is no difference in the effectiveness of the COVID921 vaccine between members of the LGBTQ.
 
+Alternative Hypothesis: The effectiveness of the COVID921 vaccine differs between members of the LGBTQ.
 
+### Inferential
+```{r}
+lgbtq_data <- subset(FinalData, LGBTQ != "straight")
 
+chisq.test(table(lgbtq_data$treatment, lgbtq_data$infected))
+chisqtestGC(table(lgbtq_data$treatment, lgbtq_data$infected))
+fisher.test(table(lgbtq_data$treatment, lgbtq_data$infected))
+```
+For Pearson's Chi-squared test with Yates' continuity correction, the p-value is extremely small (6.668e-08), indicating that the observed difference in treatment effectiveness among LGBTQ individuals is highly unlikely to have occurred by chance alone. Similarly, for Fisher's Exact Test, the p-value is also very small (1.029e-08), further supporting the rejection of the null hypothesis
+```{r}
+lgbtq_plot <- ggplot(lgbtq_data, aes(x = treatment, fill = infected)) +
+  geom_bar(position = "dodge", color = "black") +
+  labs(title = "Effectiveness of COVID921 Vaccine - LGBTQ Subgroup",
+       x = "Treatment", y = "Count") +
+  scale_fill_manual(values = c("OK" = "green", "covid19" = "red")) +
+  theme_minimal()
+lgbtq_plot
+```
 ## Druggies
+Null Hypothesis: There is no difference in the effectiveness of the COVID921 vaccine between drug users.
 
+Alternative Hypothesis: The effectiveness of the COVID921 vaccine differs between drug users.
+```{r}
+drug_user_data <- subset(FinalData, DrugUser == "yes")
+chisq.test(table(drug_user_data$treatment, drug_user_data$infected))
+chisqtestGC(table(drug_user_data$treatment, drug_user_data$infected))
+fisher.test(table(drug_user_data$treatment, drug_user_data$infected))
 
+```
+Using the Fisher's exact Test, the p-value is less than 0.5, meaning that the null hypothesis can be rejected.
+
+```{r}
+drug_user_plot <- ggplot(drug_user_data, aes(x = treatment, fill = infected)) +
+  geom_bar(position = "dodge", color = "black") +
+  labs(title = "Effectiveness of COVID921 Vaccine - Drug User Subgroup",
+       x = "Treatment", y = "Count") +
+  scale_fill_manual(values = c("OK" = "green", "covid19" = "red")) +
+  theme_minimal()
+drug_user_plot
+
+```
 # Overall Results and Conclusions
